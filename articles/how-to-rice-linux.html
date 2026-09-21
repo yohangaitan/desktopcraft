@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Rice Your Linux Desktop: A Practical Guide – DesktopCraft</title>
+  <meta name="description" content="A practical guide to ricing your Linux desktop — from choosing a window manager to dotfiles, color schemes, and the tools the community actually uses. Covers i3, bspwm, Hyprland, and more." />
+  <link rel="stylesheet" href="../style.css" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3188822743253923" crossorigin="anonymous"></script>
+</head>
+<body>
+<header><div class="container"><nav>
+  <a href="../index.html" class="logo">Desktop<span>Craft</span></a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../index.html#guides">Guides</a></li>
+    <li><a href="../about.html">About</a></li>
+    <li><a href="../contact.html">Contact</a></li>
+    <li><a href="https://yohawallpaper.plyos.me" target="_blank" class="nav-cta">Get Wallpapers</a></li>
+  </ul>
+</nav></div></header>
+
+<div class="article-hero"><div class="container-sm">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span>›</span>How to Rice Linux</div>
+  <span class="article-tag">Linux</span>
+  <h1>How to Rice Your Linux Desktop: A Practical Guide</h1>
+  <div class="meta"><span>📅 October 2025</span><span>⏱ 9 min read</span><span>🐧 Arch · Ubuntu · Fedora</span></div>
+</div></div>
+
+<section class="article-body"><div class="container"><div class="article-layout"><div>
+  <div class="toc"><h4>Table of Contents</h4><ol>
+    <li><a href="#what">What Is Ricing?</a></li>
+    <li><a href="#wm">Choosing a Window Manager</a></li>
+    <li><a href="#colorscheme">Color Schemes and Pywal</a></li>
+    <li><a href="#bar">Status Bar Configuration</a></li>
+    <li><a href="#terminal">Terminal Stack</a></li>
+    <li><a href="#dotfiles">Dotfiles and Version Control</a></li>
+    <li><a href="#compositor">Compositor and Visual Effects</a></li>
+    <li><a href="#wallpaper">Wallpaper Management</a></li>
+    <li><a href="#community">Where to Share and Find Inspiration</a></li>
+  </ol></div>
+
+  <h2 id="what">What Is Ricing?</h2>
+  <p>Ricing is the practice of extensively customizing a Linux desktop environment to achieve a specific aesthetic result — typically a minimal, cohesive setup where every visible element shares the same color palette, font, and visual style. The term comes from the car modification community ("race-inspired cosmetic enhancements") and was adopted by the Linux customization community to describe setups that prioritize appearance alongside functionality.</p>
+  <p>A riced Linux desktop typically replaces the full desktop environment (GNOME or KDE) with a standalone window manager, configures a custom status bar, applies a single color scheme across all applications simultaneously, and manages everything through plain text configuration files called dotfiles. The result is a desktop that can look dramatically different from any default Linux installation and is configured down to pixel-level precision.</p>
+  <p>Ricing has a learning curve — it requires comfort with the terminal, reading documentation, and editing configuration files. But the level of control it provides over the final appearance is unmatched by any other platform or approach.</p>
+
+  <h2 id="wm">Choosing a Window Manager</h2>
+  <p>The window manager (WM) is the foundation of any rice. It controls how windows are placed, sized, and decorated. The main categories are stacking (windows overlap like on Windows or macOS), tiling (windows fill the screen in non-overlapping grids), and dynamic (supports both modes).</p>
+  <p>For ricing, tiling window managers dominate because they produce the clean, gap-separated window layouts that define the aesthetic. The most widely used are:</p>
+  <p><strong>i3</strong> — the most documented and community-supported tiling WM. Configured through a single text file, has extensive documentation, and has been the entry point for most Linux ricers for over a decade. Works on X11 only. If you are new to tiling WMs, start here.</p>
+  <p><strong>bspwm</strong> — a binary space partitioning WM that handles window layout through a socket-based protocol. More flexible than i3 for custom layouts but requires a separate key binding tool (sxhkd). Popular in the r/unixporn community for its clean split layouts.</p>
+  <p><strong>Hyprland</strong> — a Wayland compositor and tiling WM that has become rapidly popular for its smooth animations, rounded corners, and modern configuration format. The best choice if you want a visually polished rice without the raw minimalism of i3 or bspwm. Wayland-only.</p>
+  <p><strong>Qtile</strong> — configured entirely in Python, which makes it accessible to developers who prefer programming their WM configuration over learning a custom syntax. Supports both X11 and Wayland.</p>
+
+  <h2 id="colorscheme">Color Schemes and Pywal</h2>
+  <p>Color scheme consistency across all applications is the defining characteristic of a well-riced desktop. Manually updating terminal colors, WM border colors, bar colors, and application themes every time you change your wallpaper would be impractical — this is what Pywal solves.</p>
+  <p>Pywal (python-pywal) is a tool that generates a color palette from any image and applies it simultaneously to your terminal, wallpaper, and any other application you configure it to update. Set a new wallpaper with Pywal and your entire color scheme updates in seconds to match the dominant colors of that image.</p>
+  <p>Install Pywal with pip: <code>pip install pywal</code>. Set a wallpaper and generate a scheme: <code>wal -i /path/to/wallpaper.jpg</code>. Pywal writes color files to ~/.cache/wal/ that other applications can source. Add <code>cat ~/.cache/wal/sequences</code> to your shell's rc file to apply colors to new terminal instances automatically.</p>
+  <p>For manual color scheme management without Pywal, the base16 framework provides a standardized color scheme format with templates for hundreds of applications. Define your 16 colors once and build tool generates configuration files for every supported application simultaneously.</p>
+
+  <h2 id="bar">Status Bar Configuration</h2>
+  <p>The status bar displays workspace indicators, system stats, time, and other information at the top or bottom of the screen. For ricing, the bar is a critical visual element — it needs to match your color scheme and font choices precisely.</p>
+  <p><strong>Polybar</strong> is the most widely used bar in the ricing community. Highly configurable through a single INI file, it supports modules for workspaces, CPU, RAM, network, battery, date, and custom scripts. Its extensive documentation and large community mean solutions to most configuration questions are readily available.</p>
+  <p><strong>Waybar</strong> is the Wayland equivalent — similar module system to Polybar but built for Wayland compositors. If you are using Hyprland or another Wayland WM, Waybar is the standard choice.</p>
+  <p><strong>eww</strong> (Elkowar's Wacky Widgets) is a more flexible widget system that can create bars, overlays, and floating widgets using a Lisp-inspired configuration language. More powerful than Polybar but with a steeper learning curve. Used for highly custom bar layouts that go beyond what Polybar's module system supports.</p>
+
+  <h2 id="terminal">Terminal Stack</h2>
+  <p>The terminal is the centerpiece of any rice — it is where most of the configuration work happens and where the aesthetic is most visible. A standard ricing terminal stack consists of four components: the terminal emulator, the shell, the prompt theme, and the color scheme.</p>
+  <p>For terminal emulators, Alacritty and Kitty are the most popular in the ricing community. Both are GPU-accelerated, support custom color schemes through configuration files, and have minimal UI chrome that keeps the focus on the terminal content. Foot is a lightweight Wayland-native option. Configure your terminal's color scheme to match your Pywal output or your chosen base16 scheme.</p>
+  <p>For the shell, Zsh with Oh My Zsh and the Powerlevel10k prompt is the dominant combination. Fish shell is a simpler alternative with better defaults out of the box but less plugin ecosystem. Configure your prompt to show git branch status, command execution time, and exit codes — these are functionally useful and visually add information density that is characteristic of riced terminals.</p>
+  <p>Add syntax highlighting and autosuggestions: <code>zsh-syntax-highlighting</code> and <code>zsh-autosuggestions</code> are Oh My Zsh plugins that significantly improve the terminal experience and are visible in screenshots.</p>
+
+  <h2 id="dotfiles">Dotfiles and Version Control</h2>
+  <p>Dotfiles are the configuration files that define your rice — WM config, bar config, terminal config, shell rc files, Picom config, and everything else. Managing them with Git is essential: it gives you a history of every change, the ability to roll back mistakes, and a way to share or restore your setup on a new machine.</p>
+  <p>The standard approach is a bare Git repository. Initialize it with: <code>git init --bare $HOME/.dotfiles</code>. Create an alias: <code>alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'</code>. Add this alias to your .bashrc or .zshrc, then use <code>dotfiles add</code>, <code>dotfiles commit</code>, and <code>dotfiles push</code> to manage your config files like any other Git repo, without moving them from their original locations.</p>
+  <p>Push your dotfiles to a public GitHub repository. This serves as backup, as a reference for others, and as proof of your work when sharing screenshots on r/unixporn or similar communities.</p>
+
+  <h2 id="compositor">Compositor and Visual Effects</h2>
+  <p>On X11, Picom is the standard compositor for ricing. It adds window transparency, blur effects, shadows, and fade animations. A basic Picom configuration that enables blur on inactive windows and a subtle fade on window open/close is a standard starting point. The Picom fork by ibhagwan adds more blur algorithms and rounded corner support.</p>
+  <p>On Wayland, compositing is handled by the WM itself. Hyprland has built-in blur, rounded corners, shadow, and animation support configured directly in hyprland.conf — no separate compositor needed. This is one of the reasons Hyprland has become popular for visually polished rices.</p>
+  <p>Rounded window corners are a common element in modern rices. On X11 with Picom (ibhagwan fork): <code>corner-radius = 8;</code> in picom.conf. On Hyprland: <code>rounding = 8</code> in the decoration section of hyprland.conf. The radius value controls how aggressively corners are rounded — 4 to 12 pixels is typical.</p>
+
+  <h2 id="wallpaper">Wallpaper Management</h2>
+  <p>On X11, feh and nitrogen are the standard tools for setting wallpapers from the command line. feh is the more minimal option: <code>feh --bg-scale /path/to/wallpaper.jpg</code>. Add this to your WM's autostart to apply at login. When using Pywal, the command becomes <code>wal -i /path/to/wallpaper.jpg</code> which sets the wallpaper and generates the color scheme simultaneously.</p>
+  <p>On Wayland, swww is the most capable wallpaper tool — it supports smooth transitions between wallpapers, which looks polished when switching. swaybg is a simpler alternative for static wallpapers. Both are compatible with most Wayland compositors.</p>
+  <div class="tip-box"><strong>💡 Wallpaper source:</strong> Download wallpapers at your exact monitor resolution from <a href="https://yohawallpaper.plyos.me" target="_blank">YohaWallpaper</a> and pipe them through Pywal for instant color scheme generation. The Dark, Minimalist, and Space categories produce particularly strong Pywal palettes because their dominant colors are well-separated and high-contrast.</div>
+
+  <h2 id="community">Where to Share and Find Inspiration</h2>
+  <p>r/unixporn on Reddit is the primary community for sharing and discovering Linux rices. Posts follow a standard format: a screenshot of the desktop with a title listing the WM, bar, terminal emulator, and color scheme, and a comment linking to the dotfiles on GitHub. Browsing the top posts of all time is the most efficient way to understand what the community considers a high-quality rice and to find dotfiles to learn from.</p>
+  <p>The unixporn Discord server has channels for work-in-progress feedback, specific tool help, and themed rice challenges. It is more interactive than the subreddit for getting feedback on a rice in progress.</p>
+  <p>When sharing your rice, always include a link to your dotfiles — this is community norm and makes your post significantly more valuable to others. A screenshot without dotfiles is decoration; a screenshot with dotfiles is a resource.</p>
+  <div class="tip-box"><strong>✅ Rice starting checklist:</strong> Choose WM (i3 for X11 beginners, Hyprland for Wayland) · Install Pywal for automatic color scheme generation · Configure Polybar or Waybar with matching colors · Set up Alacritty or Kitty with matching color scheme · Add Zsh with Powerlevel10k · Initialize dotfiles bare Git repo · Push to GitHub · Share on r/unixporn with dotfiles link.</div>
+</div>
+<aside>
+  <div class="sidebar-card"><h4>Related Articles</h4>
+    <a href="linux-desktop-customization.html" class="sidebar-link">Linux Customization Guide</a>
+    <a href="dark-desktop-setup.html" class="sidebar-link">Dark Desktop Setup</a>
+    <a href="wallpaper-color-scheme.html" class="sidebar-link">Color Matching Guide</a>
+    <a href="best-wallpaper-sites.html" class="sidebar-link">Best Wallpaper Sites</a>
+    <a href="space-desktop-setup.html" class="sidebar-link">Space Desktop Setup</a>
+  </div>
+  <div class="sidebar-card"><h4>Wallpapers for Your Rice</h4>
+    <p style="font-size:.875rem;color:#6c757d;margin-bottom:16px;">Download at your exact monitor resolution for clean Pywal palette generation.</p>
+    <a href="https://yohawallpaper.plyos.me" target="_blank" class="btn-primary" style="display:block;text-align:center;font-size:.875rem;">Browse Wallpapers →</a>
+  </div>
+</aside>
+</div></div></section>
+
+<footer><div class="container">
+  <div class="footer-grid">
+    <div class="footer-brand"><span class="logo">Desktop<span>Craft</span></span><p>Practical guides for building beautiful desktop setups on any OS.</p></div>
+    <div class="footer-col"><h5>Guides</h5><ul>
+      <li><a href="dark-desktop-setup.html">Dark Setup</a></li>
+      <li><a href="cyberpunk-desktop.html">Cyberpunk</a></li>
+      <li><a href="linux-desktop-customization.html">Linux</a></li>
+    </ul></div>
+    <div class="footer-col"><h5>Info</h5><ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 DesktopCraft. All rights reserved.</span></div>
+</div></footer>
+</body></html>

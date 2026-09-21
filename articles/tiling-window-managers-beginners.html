@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tiling Window Managers for Beginners: i3, bspwm, and Hyprland – DesktopCraft</title>
+  <meta name="description" content="A beginner's guide to tiling window managers on Linux. Covers i3, bspwm, and Hyprland — what they are, how they differ, and how to get started with each one." />
+  <link rel="stylesheet" href="../style.css" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3188822743253923" crossorigin="anonymous"></script>
+</head>
+<body>
+<header><div class="container"><nav>
+  <a href="../index.html" class="logo">Desktop<span>Craft</span></a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../index.html#guides">Guides</a></li>
+    <li><a href="../about.html">About</a></li>
+    <li><a href="../contact.html">Contact</a></li>
+    <li><a href="https://yohawallpaper.plyos.me" target="_blank" class="nav-cta">Get Wallpapers</a></li>
+  </ul>
+</nav></div></header>
+
+<div class="article-hero"><div class="container-sm">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span>›</span>Tiling Window Managers</div>
+  <span class="article-tag">Linux</span>
+  <h1>Tiling Window Managers for Beginners: i3, bspwm, and Hyprland</h1>
+  <div class="meta"><span>📅 October 2025</span><span>⏱ 8 min read</span><span>🐧 Arch · Ubuntu · Fedora</span></div>
+</div></div>
+
+<section class="article-body"><div class="container"><div class="article-layout"><div>
+  <div class="toc"><h4>Table of Contents</h4><ol>
+    <li><a href="#what">What Is a Tiling Window Manager?</a></li>
+    <li><a href="#why">Why Use One?</a></li>
+    <li><a href="#i3">i3 — Best for Beginners</a></li>
+    <li><a href="#bspwm">bspwm — Best for Custom Layouts</a></li>
+    <li><a href="#hyprland">Hyprland — Best for Visual Polish</a></li>
+    <li><a href="#comparison">Side-by-Side Comparison</a></li>
+    <li><a href="#getting-started">Getting Started: First Steps</a></li>
+    <li><a href="#wallpaper">Wallpaper in a Tiling Setup</a></li>
+  </ol></div>
+
+  <h2 id="what">What Is a Tiling Window Manager?</h2>
+  <p>A tiling window manager (TWM) is a program that controls how application windows are placed and sized on screen. Unlike the floating window model used by Windows, macOS, and most Linux desktop environments — where windows overlap and you drag them into position manually — a tiling WM automatically arranges windows in non-overlapping tiles that fill the available screen space.</p>
+  <p>When you open a second application, the tiling WM splits the screen between the two windows automatically. Open a third and it adjusts all three. Every window gets a defined share of the screen without any manual resizing or repositioning. Navigation between windows, workspaces, and layouts is done entirely through keyboard shortcuts.</p>
+  <p>The result is a desktop with no wasted screen space, no window overlap, and no mouse required for window management. For people who spend most of their time in a terminal and a browser, this produces a significantly more efficient workflow than a traditional floating desktop.</p>
+
+  <h2 id="why">Why Use One?</h2>
+  <p>The practical advantages of a tiling WM are consistent across setups: every pixel of screen space is used, switching between applications is faster with keyboard shortcuts than with a mouse and taskbar, and the desktop is inherently clean because windows cannot accumulate in disorganized piles.</p>
+  <p>For desktop aesthetics specifically, tiling WMs produce a visual style that is distinctive and difficult to replicate in a floating environment — the gap-separated tiled windows, the minimal or absent title bars, and the custom status bar create a look that has become one of the most recognized visual signatures of Linux desktop culture.</p>
+  <p>The trade-off is the initial investment: you need to learn keyboard shortcuts, read documentation, and configure everything from scratch. There is no graphical settings panel. Everything is text configuration files. The first few days with a tiling WM are usually frustrating; the payoff comes after that initial curve.</p>
+
+  <h2 id="i3">i3 — Best for Beginners</h2>
+  <p>i3 is the most documented, most discussed, and most beginner-accessible tiling WM available. It has been in active development since 2009, has an official manual that covers every feature, and has a community large enough that almost any configuration question has been answered somewhere.</p>
+  <p>Configuration is done through a single file at ~/.config/i3/config. The syntax is straightforward — each line is either a key binding, a workspace rule, a startup command, or a visual setting. The default configuration ships with sensible key bindings using the Super key (Windows key) as the modifier, making it usable immediately after installation.</p>
+  <p>Install i3 on Ubuntu: <code>sudo apt install i3</code>. On Arch: <code>sudo pacman -S i3-wm</code>. Log out and select i3 from your display manager's session list. On first launch, i3 asks you to choose a modifier key — Super is the standard choice.</p>
+  <p>Key i3 concepts to learn first: workspaces (virtual desktops, switched with Super+1 through Super+9), layout modes (split horizontal, split vertical, tabbed, stacked), and the scratchpad (a hidden workspace for floating utility windows). The official i3 user guide at i3wm.org covers all of these with examples.</p>
+
+  <h2 id="bspwm">bspwm — Best for Custom Layouts</h2>
+  <p>bspwm (Binary Space Partitioning Window Manager) takes a different architectural approach than i3. Instead of a monolithic configuration, bspwm is controlled entirely through a socket interface using a command-line tool called bspc. This means the WM itself has no built-in key bindings — you define all keyboard shortcuts separately using sxhkd (Simple X HotKey Daemon), which reads its own configuration file.</p>
+  <p>This separation makes bspwm more flexible than i3 for complex setups — you can script any behavior using bspc commands from shell scripts, and key bindings can execute arbitrary shell commands rather than being limited to built-in WM actions. The trade-off is that the initial setup requires configuring two separate tools (bspwm and sxhkd) before the desktop is functional.</p>
+  <p>Install on Arch: <code>sudo pacman -S bspwm sxhkd</code>. On Ubuntu: <code>sudo apt install bspwm sxhkd</code>. Copy the example configs: <code>cp /usr/share/doc/bspwm/examples/bspwmrc ~/.config/bspwm/bspwmrc</code> and <code>cp /usr/share/doc/bspwm/examples/sxhkdrc ~/.config/sxhkd/sxhkdrc</code>. Make bspwmrc executable: <code>chmod +x ~/.config/bspwm/bspwmrc</code>.</p>
+  <p>bspwm's visual aesthetic tends toward very clean gap-separated layouts — the default look with even gaps between windows and no title bars is one of the most screenshot-friendly configurations in the Linux community.</p>
+
+  <h2 id="hyprland">Hyprland — Best for Visual Polish</h2>
+  <p>Hyprland is a dynamic tiling Wayland compositor that has become the fastest-growing option in the ricing community. Unlike i3 and bspwm, which run on X11, Hyprland runs on Wayland — the modern display protocol that is gradually replacing X11 on Linux. It combines the window manager and compositor into a single program, which means blur, animations, rounded corners, and other visual effects are built in rather than requiring a separate compositor like Picom.</p>
+  <p>The visual result is noticeably more polished than i3 or bspwm out of the box — smooth window animations, rounded corners, and gaussian blur on floating windows and the status bar are all available through configuration without any additional tools. For users who prioritize aesthetics alongside functionality, Hyprland currently produces the most visually refined tiling setups.</p>
+  <p>Install on Arch (the primary supported distribution): <code>sudo pacman -S hyprland</code>. On other distributions, check the Hyprland wiki for distribution-specific instructions — support varies. The configuration file lives at ~/.config/hypr/hyprland.conf and uses a custom key=value syntax that is well-documented on the Hyprland wiki.</p>
+  <p>Note that Wayland compatibility with some applications — particularly older games and certain screen sharing scenarios — is still improving. If you rely on applications with known Wayland issues, verify compatibility before switching.</p>
+
+  <h2 id="comparison">Side-by-Side Comparison</h2>
+  <p><strong>Display protocol:</strong> i3 and bspwm use X11; Hyprland uses Wayland.</p>
+  <p><strong>Configuration:</strong> i3 uses a single config file with its own syntax; bspwm uses two files (bspwmrc shell script + sxhkdrc); Hyprland uses a single config file with key=value syntax.</p>
+  <p><strong>Visual effects:</strong> i3 and bspwm require Picom for blur, transparency, and animations; Hyprland has these built in.</p>
+  <p><strong>Community and documentation:</strong> i3 has the largest community and most documentation; bspwm has a strong ricing community with extensive dotfile examples; Hyprland has rapidly growing documentation and community.</p>
+  <p><strong>Learning curve:</strong> i3 is the gentlest entry point; bspwm requires understanding the two-tool architecture; Hyprland requires familiarity with Wayland concepts.</p>
+  <p><strong>Best for:</strong> i3 — beginners and anyone who values stability and documentation; bspwm — users who want maximum scripting flexibility; Hyprland — users who prioritize visual polish and are on Arch or a supported distribution.</p>
+
+  <h2 id="getting-started">Getting Started: First Steps</h2>
+  <p>Regardless of which WM you choose, the first hour with a tiling WM follows the same pattern. Install the WM and a terminal emulator (Alacritty or Kitty). Log into the WM session. Open a terminal. From there, install everything else through the terminal — a browser, a file manager, a status bar.</p>
+  <p>Do not try to replicate your previous desktop immediately. Start with the default configuration and learn the key bindings first. Add customization one element at a time: first get the key bindings working for your workflow, then configure the status bar, then adjust colors and fonts, then add gaps and visual effects. Changing everything simultaneously makes it impossible to diagnose what is causing any issue.</p>
+  <p>Keep a second terminal open with your WM's documentation or the official wiki. Every time you want to change something, find the relevant configuration option before editing the file. This prevents the common pattern of making multiple changes at once and not knowing which one broke something.</p>
+
+  <h2 id="wallpaper">Wallpaper in a Tiling Setup</h2>
+  <p>Wallpaper management in a tiling WM is not automatic — there is no desktop environment to set it for you. On X11 (i3 and bspwm), use feh: add <code>feh --bg-scale /path/to/wallpaper.jpg &</code> to your WM's autostart file. On Wayland (Hyprland), use swww or swaybg: add <code>swww img /path/to/wallpaper.jpg</code> to your hyprland.conf exec-once section.</p>
+  <p>For Pywal integration — automatic color scheme generation from your wallpaper — replace the feh command with <code>wal -i /path/to/wallpaper.jpg</code>. This sets the wallpaper and generates a matching color scheme for your terminal and other configured applications simultaneously.</p>
+  <div class="tip-box"><strong>💡 Wallpaper choice matters more in tiling setups:</strong> Because tiling windows often cover most of the wallpaper, the visible portions are typically the corners and gaps between windows. Choose wallpapers where these areas are visually interesting — a wallpaper with detail distributed across the whole image works better than one with a centered subject. Browse by category on <a href="https://yohawallpaper.plyos.me" target="_blank">YohaWallpaper</a> and download at your exact monitor resolution for clean feh or swww rendering.</div>
+  <div class="tip-box"><strong>✅ First tiling WM checklist:</strong> Choose WM based on priorities (i3 → beginners, bspwm → flexibility, Hyprland → visuals) · Install WM and terminal emulator · Learn default key bindings before customizing · Configure status bar (Polybar for X11, Waybar for Wayland) · Set wallpaper via feh or swww · Add gaps in WM config · Version-control dotfiles on GitHub from day one.</div>
+</div>
+<aside>
+  <div class="sidebar-card"><h4>Related Articles</h4>
+    <a href="how-to-rice-linux.html" class="sidebar-link">How to Rice Linux</a>
+    <a href="linux-desktop-customization.html" class="sidebar-link">Linux Customization Guide</a>
+    <a href="dark-desktop-setup.html" class="sidebar-link">Dark Desktop Setup</a>
+    <a href="wallpaper-color-scheme.html" class="sidebar-link">Color Matching Guide</a>
+    <a href="best-wallpaper-sites.html" class="sidebar-link">Best Wallpaper Sites</a>
+  </div>
+  <div class="sidebar-card"><h4>Wallpapers for Tiling Setups</h4>
+    <p style="font-size:.875rem;color:#6c757d;margin-bottom:16px;">Download at your exact monitor resolution for clean rendering with feh or swww.</p>
+    <a href="https://yohawallpaper.plyos.me" target="_blank" class="btn-primary" style="display:block;text-align:center;font-size:.875rem;">Browse Wallpapers →</a>
+  </div>
+</aside>
+</div></div></section>
+
+<footer><div class="container">
+  <div class="footer-grid">
+    <div class="footer-brand"><span class="logo">Desktop<span>Craft</span></span><p>Practical guides for building beautiful desktop setups on any OS.</p></div>
+    <div class="footer-col"><h5>Guides</h5><ul>
+      <li><a href="dark-desktop-setup.html">Dark Setup</a></li>
+      <li><a href="cyberpunk-desktop.html">Cyberpunk</a></li>
+      <li><a href="linux-desktop-customization.html">Linux</a></li>
+    </ul></div>
+    <div class="footer-col"><h5>Info</h5><ul>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+      <li><a href="../privacy.html">Privacy Policy</a></li>
+      <li><a href="../terms.html">Terms of Use</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 DesktopCraft. All rights reserved.</span></div>
+</div></footer>
+</body></html>
